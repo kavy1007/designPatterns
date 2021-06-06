@@ -1,0 +1,39 @@
+observer pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+
+It is also referred to as the publish-subscribe pattern.
+
+In observer pattern, there are many observers (subscriber objects) that are observing a particular subject (publisher object). Observers register themselves to a subject to get a notification when there is a change made inside that subject.
+
+A observer object can register or unregister from subject at any point of time. It helps is making the objects objects loosely coupled.
+
+
+As described above, when you have a design a system where multiple entities are interested in any possible update to some particular second entity object, we can use the observer pattern.
+
+The flow is very simple to understand. Application creates the concrete subject object. All concrete observers register themselves to be notified for any further update in the state of subject.
+
+As soon as the state of subject changes, subject notifies all the registered observers and the observers can access the updated state and act accordingly
+
+
+Observable 
+Observers
+
+one to many relationship between them 
+
+Can different types of observers register to one subject?
+The nature and functionality of observers can be different but they all must implement the one common Observer interface which the subject support for registering and deregistering.
+
+Can I add or remove observers at runtime?
+Yes. We can add or remove the observers at any point of time.
+
+Difference between observer pattern and chain of responsibility pattern?
+In an observer pattern, all registered handler objects get notifications at the same time and they process the update at same time.
+
+But in a chain of responsibility pattern, handler objects in the chain are notified one by one, and this process continues until one object fully handles the notification.
+
+Benefits of the observer pattern?
+The subject and observers make a loosely coupled system. They do not need to know each other explicitly. We can independently add or remove observers at any time.
+
+
+https://howtodoinjava.com/design-patterns/behavioral/observer-design-pattern/
+https://www.youtube.com/watch?v=_BpmfnqjgzQ
+
