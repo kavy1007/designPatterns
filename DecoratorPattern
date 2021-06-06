@@ -1,0 +1,108 @@
+ decorator design pattern is used to add additional features or behaviors to a particular instance of a class,
+ while not modifying the other instances of same class.
+ 
+ This pattern is very important to understand because once you know the techniques of decorating, 
+ you’ll be able to give your (or someone else’s) objects new responsibilities without making any code changes to the underlying classes.
+ 
+ The key here is it all happens dynamically
+ 
+ example:
+ 
+ cofee is a base object 
+ any add ons such as toping, vanilla cream will be a add on decorator
+ 
+ Consider a case of a pizza shop. In the pizza shop they will sell few pizza varieties and they will also provide toppings in the menu. Now imagine a situation wherein if the pizza shop has to provide prices for each combination of pizza and topping. Even if there are four basic pizzas and 8 different toppings, the application would go crazy maintaining all these concrete combination of pizzas and toppings.
+
+Here comes the decorator pattern.
+
+As per the decorator pattern, you will implement toppings as decorators and pizzas will be decorated by those toppings' decorators. Practically each customer would want toppings of his desire and final bill-amount will be composed of the base pizzas and additionally ordered toppings. Each topping decorator would know about the pizzas that it is decorating and it's price. GetPrice() method of Topping object would return cumulative price of both pizza and the topping.
+
+public abstract class BasePizza
+{
+    protected double myPrice;
+
+    public virtual double GetPrice()
+    {
+        return this.myPrice;
+    }
+}
+
+public abstract class ToppingsDecorator : BasePizza
+{
+    protected BasePizza pizza;
+    public ToppingsDecorator(BasePizza pizzaToDecorate)
+    {
+        this.pizza = pizzaToDecorate;
+    }
+
+    public override double GetPrice()
+    {
+        return (this.pizza.GetPrice() + this.myPrice);
+    }
+}
+
+class Program
+{
+    [STAThread]
+    static void Main()
+    {
+        //Client-code
+        Margherita pizza = new Margherita();
+        Console.WriteLine("Plain Margherita: " + pizza.GetPrice().ToString());
+
+        ExtraCheeseTopping moreCheese = new ExtraCheeseTopping(pizza);
+        ExtraCheeseTopping someMoreCheese = new ExtraCheeseTopping(moreCheese);
+        Console.WriteLine("Plain Margherita with double extra cheese: " + someMoreCheese.GetPrice().ToString());
+
+        MushroomTopping moreMushroom = new MushroomTopping(someMoreCheese);
+        Console.WriteLine("Plain Margherita with double extra cheese with mushroom: " + moreMushroom.GetPrice().ToString());
+
+        JalapenoTopping moreJalapeno = new JalapenoTopping(moreMushroom);
+        Console.WriteLine("Plain Margherita with double extra cheese with mushroom with Jalapeno: " + moreJalapeno.GetPrice().ToString());
+
+        Console.ReadLine();
+    }
+}
+
+public class Margherita : BasePizza
+{
+    public Margherita()
+    {
+        this.myPrice = 6.99;
+    }
+}
+
+public class Gourmet : BasePizza
+{
+    public Gourmet()
+    {
+        this.myPrice = 7.49;
+    }
+}
+
+public class ExtraCheeseTopping : ToppingsDecorator
+{
+    public ExtraCheeseTopping(BasePizza pizzaToDecorate)
+        : base(pizzaToDecorate)
+    {
+        this.myPrice = 0.99;
+    }
+}
+
+public class MushroomTopping : ToppingsDecorator
+{
+    public MushroomTopping(BasePizza pizzaToDecorate)
+        : base(pizzaToDecorate)
+    {
+        this.myPrice = 1.49;
+    }
+}
+
+public class JalapenoTopping : ToppingsDecorator
+{
+    public JalapenoTopping(BasePizza pizzaToDecorate)
+        : base(pizzaToDecorate)
+    {
+        this.myPrice = 1.49;
+    }
+}
