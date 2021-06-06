@@ -1,0 +1,8 @@
+Strategy design pattern is behavioral design pattern where we choose a specific implementation of algorithm or task in run time – out of multiple other implementations for same task.
+
+The important point is that these implementations are interchangeable – based on task a implementation may be picked without disturbing the application workflow.
+
+In Strategy pattern, we first create an abstraction of algorithm. 
+This is an interface having the abstract operation. Then we create implementations of this abstraction and these are called strategies.
+
+https://www.youtube.com/watch?v=v9ejT8FO-7I
