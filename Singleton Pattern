@@ -1,0 +1,22 @@
+Singleton enables an application to have one and only one instance of a class per JVM.
+
+
+public class LazySingleton {
+    private static volatile LazySingleton instance = null;
+ 
+    // private constructor
+    private LazySingleton() {
+    }
+ 
+    public static LazySingleton getInstance() {
+        if (instance == null) {
+            synchronized (LazySingleton.class) {
+                // Double check
+                if (instance == null) {
+                    instance = new LazySingleton();
+                }
+            }
+        }
+        return instance;
+    }
+}
